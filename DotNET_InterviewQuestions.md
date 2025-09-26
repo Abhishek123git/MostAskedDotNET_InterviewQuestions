@@ -1,6 +1,6 @@
 # .NET (C#) Interview Questions and Answers
 
-This document contains a collection of 30 (Basic to Advance) interview questions related to .NET and the C# programming language, aimed at assessing candidates at various levels of expertise.
+This document contains a collection of 31 (Basic to Advance) interview questions related to .NET and the C# programming language, aimed at assessing candidates at various levels of expertise.
 
 ***These are only technical questions, it is not guaranteed that you will pass the interview if you know all the questions.***
 
@@ -33,17 +33,18 @@ This document contains a collection of 30 (Basic to Advance) interview questions
 20. **What are extension methods and where would you use them?**
 21. **How do you handle exceptions in a method that returns a Task?**
 22. **What is difference between an abstract class and interface? ⭐⭐**
+23. **How to consume WebApi from .NET MVC applications and what are different ways to consume WebApi? ⭐**
 
 ## Advanced
 
-23. **What is reflection in .NET and how would you use it?**
-24. **Can you explain the concept of middleware in ASP.NET Core? ⭐**
-25. **Describe the Dependency Injection (DI) pattern and how it's implemented in .NET Core. ⭐**
-26. **What is the purpose of the .NET Standard?**
-27. **Explain the differences between .NET Core, .NET Framework, and Xamarin.**
-28. **How does garbage collection work in .NET and how can you optimize it? ⭐**
-29. **What are attributes in C# and how can they be used?**
-30. **How would you secure a web application in ASP.NET Core?**
+24. **What is reflection in .NET and how would you use it?**
+25. **Can you explain the concept of middleware in ASP.NET Core? ⭐**
+26. **Describe the Dependency Injection (DI) pattern and how it's implemented in .NET Core. ⭐**
+27. **What is the purpose of the .NET Standard?**
+28. **Explain the differences between .NET Core, .NET Framework, and Xamarin.**
+29. **How does garbage collection work in .NET and how can you optimize it? ⭐**
+30. **What are attributes in C# and how can they be used?**
+31. **How would you secure a web application in ASP.NET Core?**
 
 ### 1. What is .NET?
 
@@ -783,7 +784,40 @@ Handling exceptions in tasks is crucial for writing robust and error-resistant a
 - Abstract class does not support multiple inheritance, while interface support multiple inheritance.
 - Abstract class can have constructors, while interface do not have constructors.
 
-### 23. What is reflection in .NET and how would you use it?
+### 23. How to consume WebApi from .NET MVC applications and what are different ways to consume WebApi?
+
+**Answer:**
+## (1) Using HttpClient (Most Common Approach)
+
+- Create an instance of `HttpClient`.
+- Use methods like `GetAsync`, `PostAsync`, `PutAsync`, `DeleteAsync` to call the API.
+- Deserialize the JSON response using `JsonConvert.DeserializeObject<T>()` (from Newtonsoft.Json or System.Text.Json).
+
+Here's a simple example demonstrating:
+
+```csharp
+HttpClient client = new HttpClient();
+var response = await client.GetAsync("https://api.example.com/products");
+var json = await response.Content.ReadAsStringAsync();
+var products = JsonConvert.DeserializeObject<List<Product>>(json);
+```
+## (2) Using jQuery AJAX (Client-Side Call from Razor Views)
+
+- Calls WebAPI directly from the browser.
+  
+Here's a simple example demonstrating:
+
+```javascript
+$.ajax({
+  url: '/api/products',
+  type: 'GET',
+  success: function(data) {
+    // render data
+  }
+});
+```
+
+### 24. What is reflection in .NET and how would you use it?
 
 **Answer:** Reflection in .NET is a powerful feature that allows runtime inspection of assemblies, types, and their members (such as methods, fields, properties, and events). It enables creating instances of types, invoking methods, and accessing fields and properties dynamically, without knowing the types at compile time. Reflection is used for various purposes, including building type browsers, dynamically invoking methods, and reading custom attributes.
 
@@ -830,7 +864,7 @@ In this example, reflection is used to obtain the Type object for MyClass, creat
 
 Using reflection comes with a performance cost, so it should be used judiciously, especially in performance-critical paths of an application.
 
-### 24. Can you explain the concept of middleware in ASP.NET Core?
+### 25. Can you explain the concept of middleware in ASP.NET Core?
 
 **Answer:** Middleware in ASP.NET Core is software that's assembled into an application pipeline to handle requests and responses. Each component in the middleware pipeline is responsible for invoking the next component in the sequence or short-circuiting the chain if necessary. Middleware components can perform a variety of tasks, such as authentication, routing, session management, and logging.
 
@@ -883,7 +917,7 @@ In this example, CustomMiddleware is defined with an InvokeAsync method that ASP
 
 Middleware components in ASP.NET Core provide a powerful way to compose your application's request-handling pipeline, allowing for modular and reusable components that can encapsulate request-processing logic.
 
-### 25. Describe the Dependency Injection (DI) pattern and how it's implemented in .NET Core.
+### 26. Describe the Dependency Injection (DI) pattern and how it's implemented in .NET Core.
 
 **Answer:** Dependency Injection (DI) is a design pattern that facilitates loose coupling between software components by removing the direct dependencies among them. Instead of instantiating dependencies directly, components receive their dependencies from an external source (often an inversion of control container). DI makes your code more modular, easier to test, maintain, and extend.
 
@@ -950,7 +984,7 @@ In this example, IGreetingService is an interface defining a service contract, a
 
 Dependency Injection in .NET Core is a foundational feature that supports the development of decoupled and easily testable applications.
 
-### 26. What is the purpose of the .NET Standard?
+### 27. What is the purpose of the .NET Standard?
 
 **Answer:** The .NET Standard is a formal specification of .NET APIs that are intended to be available on all .NET implementations. The goal of the .NET Standard is to establish greater uniformity in the .NET ecosystem. It enables developers to create libraries that are compatible across different .NET platforms, such as .NET Core, .NET Framework, Xamarin, and others, with a single codebase. This simplifies the development process and enhances code reuse across projects and platforms.
 
@@ -977,7 +1011,7 @@ In this example, the class library targets .NET Standard 2.0, meaning it can run
 
 The .NET Standard facilitates the development of portable libraries and helps unify the .NET ecosystem, making it easier for developers to share and reuse code across different .NET platforms.
 
-### 27. Explain the differences between .NET Core, .NET Framework, and Xamarin.
+### 28. Explain the differences between .NET Core, .NET Framework, and Xamarin.
 
 **Answer:** .NET Core, .NET Framework, and Xamarin are all part of the .NET ecosystem, but they serve different purposes and are used in different types of projects. Understanding the differences between them can help you choose the right technology for your specific needs.
 
@@ -1010,7 +1044,7 @@ Here's a simple comparison:
 
 .NET 5 and onwards (rebranded from .NET Core) aim to unify these platforms under a single .NET runtime and framework that can be used everywhere and that supports all types of application development.
 
-### 28. How does garbage collection work in .NET and how can you optimize it?
+### 29. How does garbage collection work in .NET and how can you optimize it?
 
 **Answer:** Garbage Collection (GC) in .NET is an automatic memory management feature that helps in reclaiming the memory used by objects that are no longer accessible in the application. It eliminates the need for manual memory management, reducing the risks of memory leaks and other memory-related issues.
 
@@ -1077,7 +1111,7 @@ public class ResourceWrapper : IDisposable
 By understanding and optimizing the .NET garbage collector, developers can improve their applications' performance and reliability.
 
 
-### 29. What are attributes in C# and how can they be used?
+### 30. What are attributes in C# and how can they be used?
 
 **Answer:** Attributes in C# are a powerful way to add declarative information to your code. They are used to add metadata, such as compiler instructions, annotations, or custom information, to program elements (classes, methods, properties, etc.). Attributes can influence the behavior of certain components at runtime or compile time, and they can be queried through reflection.
 
@@ -1203,7 +1237,7 @@ Note: With the introduction of .NET Core and its focus on application-local depl
 
 The GAC plays a critical role in assembly sharing and versioning in the .NET Framework, facilitating the management of common libraries across applications on a single machine.
 
-## 30. How would you secure a web application in ASP.NET Core?
+## 31. How would you secure a web application in ASP.NET Core?
 Securing an ASP.NET Core web application involves multiple strategies, including authentication, authorization, data protection, and HTTPS enforcement.
 
 ### Example: Enforcing HTTPS in ASP.NET Core
