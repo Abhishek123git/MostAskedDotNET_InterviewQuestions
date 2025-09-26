@@ -787,7 +787,7 @@ Handling exceptions in tasks is crucial for writing robust and error-resistant a
 ### 23. How to consume WebApi from .NET MVC applications and what are different ways to consume WebApi?
 
 **Answer:**
-## (1) Using HttpClient (Most Common Approach)
+**(1) Using HttpClient (Most Common Approach)**
 
 - Create an instance of `HttpClient`.
 - Use methods like `GetAsync`, `PostAsync`, `PutAsync`, `DeleteAsync` to call the API.
@@ -801,7 +801,7 @@ var response = await client.GetAsync("https://api.example.com/products");
 var json = await response.Content.ReadAsStringAsync();
 var products = JsonConvert.DeserializeObject<List<Product>>(json);
 ```
-## (2) Using jQuery AJAX (Client-Side Call from Razor Views)
+**(2) Using jQuery AJAX (Client-Side Call from Razor Views)**
 
 - Calls WebAPI directly from the browser.
   
